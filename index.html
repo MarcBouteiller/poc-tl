@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default-dark.css">
+    <style>
+        .title{
+            font-weight: 600;
+        }
+        .number{
+            font-weight: 500;
+            color: #f55;
+        }
+        .md-layout-item{
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <md-toolbar>
+            <div class="md-toolbar-section-start title">
+                <div class="title">THOMAS LOCATION</div>
+            </div>
+            <div class="md-toolbar-section-end">
+                Bon n°&nbsp;<span class="number">0000254</span>
+            </div>
+        </md-toolbar>
+
+        <div class="md-layout md-layout-gutter">            
+            
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-field>
+                        <label for="client">Client</label>
+                        <md-select v-model="client" name="client" id="client">
+                            <md-option value="1">Client 1</md-option>
+                            <md-option value="2">Client 2</md-option>
+                            <md-option value="3">Client 3</md-option>
+                        </md-select>
+                    </md-field>    
+                    <md-button class="md-primary md-raised">Nouveau client</md-button>
+                </md-card>
+            </div>
+            
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-field>
+                        <label for="chantier">Chantier</label>
+                        <md-select v-model="chantier" name="chantier" id="chantier">
+                            <md-option value="1">Chantier 1</md-option>
+                            <md-option value="2">Chantier 2</md-option>
+                            <md-option value="3">Chantier 3</md-option>
+                        </md-select>
+                    </md-field>
+                    <md-button class="md-primary md-raised">Nouveau chantier</md-button>    
+                </md-card>
+            </div>
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-card-header>
+                        <div class="md-title">Observations</div>
+                    </md-card-header>
+                    <md-field>
+                        <label>Notez ici vos observations</label>
+                        <md-textarea v-model="observations" md-autogrow></md-textarea>
+                    </md-field>
+                </md-card>
+            </div>
+
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-card-header>
+                        <div class="md-title">Accessoires</div>
+                    </md-card-header>
+                    
+                </md-card>
+            </div>        
+        </div>
+
+        <md-button class="md-accent md-raised">Valider</md-button>
+    
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-material@beta"></script>
+    <script>
+      Vue.use(VueMaterial.default)
+
+      new Vue({
+        el: '#app',
+        data: {
+            message: "Thomas Location",
+            client: "3",
+            chantier: "2",
+            observations: ""
+        }
+      })
+    </script>
+
+</body>
+
+</html>
