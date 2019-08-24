@@ -1,4 +1,3 @@
-
 <html>
 
 <head>
@@ -7,6 +6,7 @@
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default-dark.css">
     <style>
+        
         .title{
             font-weight: 600;
         }
@@ -60,6 +60,28 @@
                     <md-button class="md-primary md-raised">Nouveau chantier</md-button>    
                 </md-card>
             </div>
+            
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-card-header>
+                        <div class="md-title">Accessoires</div>
+                    </md-card-header>
+                    <md-field>
+                        <label for="accessories">Sélection des accessoires</label>
+                        <md-select v-model="accessories" name="accessories" id="accessories" multiple>
+                            <md-option value="Rallonge électrique">Rallonge électrique</md-option>
+                            <md-option value="Manivelle">Manivelle</md-option>
+                            <md-option value="Clé de serrage bocaux">Clé de serrage bocaux</md-option>
+                            <md-option value="Piquet de terre + Cable UMD">Piquet de terre + Cable UMD</md-option>
+                            <md-option value="Cale de roue">Cale de roue</md-option>
+                        </md-select>
+                    </md-field>
+                    <div>
+                        <md-chips v-model="accessories" class="md-primary" md-static></md-chips>
+                    </div>   
+                </md-card>
+            </div>        
+            
             <div class="md-layout-item md-size-100">
                 <md-card>
                     <md-card-header>
@@ -72,14 +94,6 @@
                 </md-card>
             </div>
 
-            <div class="md-layout-item md-size-100">
-                <md-card>
-                    <md-card-header>
-                        <div class="md-title">Accessoires</div>
-                    </md-card-header>
-                    
-                </md-card>
-            </div>        
         </div>
 
         <md-button class="md-accent md-raised">Valider</md-button>
@@ -87,7 +101,7 @@
     </div>
 
     <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vue-material@beta"></script>
+    <script src="https://unpkg.com/vue-material"></script>
     <script>
       Vue.use(VueMaterial.default)
 
@@ -97,7 +111,8 @@
             message: "Thomas Location",
             client: "3",
             chantier: "2",
-            observations: ""
+            observations: "",
+            accessories: []
         }
       })
     </script>
