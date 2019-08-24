@@ -23,11 +23,21 @@
 <body>
     <div id="app">
             <md-dialog :md-active.sync="showDialog">
-                <md-dialog-title>Preferences</md-dialog-title>
-                Ajouter ici une nouvelle 
+                <md-dialog-title>Ajout d'un nouveau client</md-dialog-title>
+                <div>
+                    <md-field>
+                        <label>Nom</label>
+                        <md-input v-model="nom"></md-input>
+                    </md-field>
+                
+                    <md-field>
+                        <label>Adresse</label>
+                        <md-input v-model="Adresse" readonly></md-input>
+                    </md-field>
+                </div>
                 <md-dialog-actions>
                     <md-button class="md-primary" @click="showDialog = false">Fermer</md-button>
-                    <md-button class="md-primary" @click="showDialog = false">Enregistre</md-button>
+                    <md-button class="md-primary" @click="showDialog = false">Enregistrer</md-button>
                 </md-dialog-actions>
             </md-dialog>
         <md-toolbar>
