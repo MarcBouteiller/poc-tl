@@ -2,19 +2,21 @@
 
 <head>
     <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
     <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default-dark.css">
     <style>
-        
-        .title{
+        .title {
             font-weight: 600;
         }
-        .number{
+
+        .number {
             font-weight: 500;
             color: #f55;
         }
-        .md-layout-item{
+
+        .md-layout-item {
             margin: 10px 0px;
         }
     </style>
@@ -22,24 +24,42 @@
 
 <body>
     <div id="app">
-            <md-dialog :md-active.sync="showDialog">
-                <md-dialog-title>Ajout d'un nouveau client</md-dialog-title>
-                <div>
-                    <md-field>
-                        <label>Nom</label>
-                        <md-input v-model="nom"></md-input>
-                    </md-field>
-                
-                    <md-field>
-                        <label>Adresse</label>
-                        <md-input v-model="Adresse" readonly></md-input>
-                    </md-field>
-                </div>
-                <md-dialog-actions>
-                    <md-button class="md-primary" @click="showDialog = false">Fermer</md-button>
-                    <md-button class="md-primary" @click="showDialog = false">Enregistrer</md-button>
-                </md-dialog-actions>
-            </md-dialog>
+        <md-dialog :md-active.sync="showDialogClient">
+            <md-dialog-title>Ajout d'un nouveau client</md-dialog-title>
+            <div>
+                <md-field>
+                    <label>Nom</label>
+                    <md-input v-model="nom"></md-input>
+                </md-field>
+
+                <md-field>
+                    <label>Adresse</label>
+                    <md-input v-model="Adresse" readonly></md-input>
+                </md-field>
+            </div>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialogClient = false">Fermer</md-button>
+                <md-button class="md-primary" @click="showDialogClient = false">Enregistrer</md-button>
+            </md-dialog-actions>
+        </md-dialog>
+        <md-dialog :md-active.sync="showDialogChantier">
+            <md-dialog-title>Ajout d'un nouveau chantier</md-dialog-title>
+            <div>
+                <md-field>
+                    <label>Nom</label>
+                    <md-input v-model="nom"></md-input>
+                </md-field>
+
+                <md-field>
+                    <label>Adresse</label>
+                    <md-input v-model="Adresse" readonly></md-input>
+                </md-field>
+            </div>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialogChantier = false">Fermer</md-button>
+                <md-button class="md-primary" @click="showDialogChantier = false">Enregistrer</md-button>
+            </md-dialog-actions>
+        </md-dialog>
         <md-toolbar>
             <div class="md-toolbar-section-start title">
                 <div class="title">THOMAS LOCATION</div>
@@ -49,19 +69,17 @@
             </div>
         </md-toolbar>
 
-        <div class="md-layout md-layout-gutter">            
-            
-            <div class="md-layout-item md-size-100">
+        <div class="md-layout md-layout-gutter">
+
+            <div class="md-layout-item">
                 <md-card>
-                    <md-select v-model="client" name="client" id="client">
-                        <md-option value="1">Client 1</md-option>
-                        <md-option value="2">Client 2</md-option>
-                        <md-option value="3">Client 3</md-option>
-                    </md-select>
-                    <md-button class="md-primary md-raised" @click="showDialog = true">Nouveau client</md-button>
+                    <md-autocomplete v-model="client" :md-options="clients">
+                        <label>Client</label>
+                    </md-autocomplete>
+                    <md-button class="md-primary md-raised" @click="showDialogClient = true">Nouveau client</md-button>
                 </md-card>
             </div>
-            
+
             <div class="md-layout-item md-size-100">
                 <md-card>
                     <md-field>
@@ -72,10 +90,75 @@
                             <md-option value="3">Chantier 3</md-option>
                         </md-select>
                     </md-field>
-                    <md-button class="md-primary md-raised">Nouveau chantier</md-button>    
+                    <md-button class="md-primary md-raised" @click="showDialogChantier = true">Nouveau chantier
+                    </md-button>
                 </md-card>
             </div>
-            
+            <div class="md-layout-item md-size-100">
+                <md-card>
+                    <md-card-header>
+                        <div class="md-title">Matériel</div>
+                    </md-card-header>
+                    <md-tabs>
+                        <md-tab id="umd" md-label="UMD">
+                            <md-field>
+                                <label for="parcs">Sélection du Parc</label>
+                                <md-select v-model="parc" name="parcs" id="parcs">
+                                    <md-option value="Q10">Q10</md-option>
+                                    <md-option value="Q20">Q20</md-option>
+                                </md-select>
+                            </md-field>
+                            <div v-if="parc === 'Q10'">
+                                <md-chip class="md-accent">Filtres 10P</md-chip>
+                                <div>
+                                    <div class="md-layout-item md-small-size-100">
+                                        <md-field>
+                                            <label>5 Mic</label>
+                                            <md-input v-model="empty" type="number" />
+                                        </md-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="md-layout-item md-small-size-100">
+                                        <md-field>
+                                            <label>25 Mic</label>
+                                            <md-input v-model="empty" type="number" />
+                                        </md-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="parc === 'Q20'">
+                                <md-chip class="md-accent">Filtres 20P</md-chip>
+                                <div>
+                                    <div class="md-layout-item md-small-size-100">
+                                        <md-field>
+                                            <label>5 Mic</label>
+                                            <md-input v-model="empty" type="number" />
+                                        </md-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="md-layout-item md-small-size-100">
+                                        <md-field>
+                                            <label>25 Mic</label>
+                                            <md-input v-model="empty" type="number" />
+                                        </md-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>
+                        <md-tab id="deprimogene" md-label="Deprimogène">
+                            <md-field>
+                                <label for="parcs">Sélection du Parc</label>
+                                <md-select v-model="parc" name="parcs" id="parcs">
+                                    <md-option value="Q1">Q1</md-option>
+                                    <md-option value="Q2">Q2</md-option>
+                                </md-select>
+                            </md-field>
+                        </md-tab>
+                    </md-tabs>
+                </md-card>
+            </div>
             <div class="md-layout-item md-size-100">
                 <md-card>
                     <md-card-header>
@@ -93,10 +176,10 @@
                     </md-field>
                     <div>
                         <md-chips v-model="accessories" class="md-primary" md-static></md-chips>
-                    </div>   
+                    </div>
                 </md-card>
-            </div>        
-            
+            </div>
+
             <div class="md-layout-item md-size-100">
                 <md-card>
                     <md-card-header>
@@ -112,25 +195,34 @@
         </div>
 
         <md-button class="md-accent md-raised">Valider</md-button>
-    
+
     </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/vue-material"></script>
     <script>
-      Vue.use(VueMaterial.default)
+        Vue.use(VueMaterial.default)
 
-      new Vue({
-        el: '#app',
-        data: {
-            showDialog: false,
-            message: "Thomas Location",
-            client: "3",
-            chantier: "2",
-            observations: "",
-            accessories: []
-        }
-      })
+        new Vue({
+            el: '#app',
+            data: {
+                showDialogClient: false,
+                showDialogChantier: false,
+                message: "Thomas Location",
+                clients: [
+                    'Client 1',
+                    'Client 2',
+                    'Client 3'
+                ],
+                client: null,
+                chantier: "2",
+                parc: "",
+                observations: "",
+                fivemic: false,
+                twentyfivemic: false,
+                accessories: []
+            }
+        })
     </script>
 
 </body>
