@@ -53,14 +53,11 @@
             
             <div class="md-layout-item md-size-100">
                 <md-card>
-                    <md-field>
-                        <label for="client">Client</label>
-                        <md-select v-model="client" name="client" id="client">
-                            <md-option value="1">Client 1</md-option>
-                            <md-option value="2">Client 2</md-option>
-                            <md-option value="3">Client 3</md-option>
-                        </md-select>
-                    </md-field>    
+                    <md-select v-model="client" name="client" id="client">
+                        <md-option value="1">Client 1</md-option>
+                        <md-option value="2">Client 2</md-option>
+                        <md-option value="3">Client 3</md-option>
+                    </md-select>
                     <md-button class="md-primary md-raised" @click="showDialog = true">Nouveau client</md-button>
                 </md-card>
             </div>
